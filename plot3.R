@@ -7,8 +7,11 @@ library('ggplot2')
 NEI <- readRDS("summarySCC_PM25.rds")
 SCC <- readRDS("Source_Classification_Code.rds")
 
+#limit to baltimore city only
+dataset_3 <- NEI[NEI$fips == "24510",]
+maxs_3 <- aggregate( Emissions ~ year + type, data = dataset_3 , FUN = sum)
 
-maxs_3 <- aggregate( Emissions ~ year + type, data = dataset_2 , FUN = sum)
-image = qplot(year, Emissions , color = type , data=df3  , geom = c("point", "smooth")  ) +
+#split series by type of the variable
+image = qplot(year, Emissions , color = type , data=maxs_3  , geom = c("point", "smooth")  ) +
   xlab('Years') + ylab("Emissions [tons]")
 ggsave(file="plot3.png", plot=image)

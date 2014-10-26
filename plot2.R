@@ -5,7 +5,7 @@ NEI <- readRDS("summarySCC_PM25.rds")
 SCC <- readRDS("Source_Classification_Code.rds")
 
 
-
+#limit to baltimore city only
 dataset_2 <- NEI[NEI$fips == "24510",]
 maxs_2 <- aggregate( Emissions ~ year , data = dataset_2 , FUN = sum)
 
